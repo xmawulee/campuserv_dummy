@@ -18,9 +18,10 @@ echo "=================================================="
 
 COMMON_JVM_OPTS="-Xint -Xss256k -XX:+UseSerialGC -XX:ReservedCodeCacheSize=8m -XX:CICompilerCount=1 -Dspring.profiles.active=local-dev"
 
-EUREKA_JVM_OPTS="$COMMON_JVM_OPTS -Xmx48m -Xms48m"
-GATEWAY_JVM_OPTS="$COMMON_JVM_OPTS -Xmx48m -Xms48m"
-MICROSERVICE_JVM_OPTS="$COMMON_JVM_OPTS -Xmx48m -Xms48m"
+EUREKA_JVM_OPTS="$COMMON_JVM_OPTS -Xmx64m -Xms48m"
+GATEWAY_JVM_OPTS="$COMMON_JVM_OPTS -Xmx64m -Xms48m"
+AUTH_JVM_OPTS="$COMMON_JVM_OPTS -Xmx192m -Xms64m"
+MICROSERVICE_JVM_OPTS="$COMMON_JVM_OPTS -Xmx128m -Xms64m"
 
 # Start Eureka Server first (Registry)
 echo "Starting Eureka Server on port 8761..."
@@ -35,7 +36,7 @@ sleep 15
 # which guarantees every DDL migration has been applied before Hibernate
 # validation runs in the remaining services.
 echo "Starting auth-service (runs Flyway migrations)..."
-java $MICROSERVICE_JVM_OPTS -jar /app/auth-service.jar &
+java $AUTH_JVM_OPTS -jar /app/auth-service.jar &
 
 echo "Waiting for auth-service to complete Flyway migrations (max 5 min)..."
 WAIT_SECS=0
