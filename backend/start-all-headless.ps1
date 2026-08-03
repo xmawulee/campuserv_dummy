@@ -63,7 +63,12 @@ foreach ($module in $modules) {
     $logFile = "$PSScriptRoot\$module.log"
     $errFile = "$PSScriptRoot\$module-err.log"
     
-    Start-Process -FilePath "C:\Tools\maven\bin\mvn.cmd" -ArgumentList "spring-boot:run -Dspring-boot.run.jvmArguments=`"-Dspring.profiles.active=local-dev -DJWT_SECRET=$env:JWT_SECRET -DINTERNAL_SERVICE_SECRET=$env:INTERNAL_SERVICE_SECRET -DBREVO_API_KEY=$env:BREVO_API_KEY -DBREVO_SENDER_EMAIL=$env:BREVO_SENDER_EMAIL -DBREVO_SENDER_NAME=$env:BREVO_SENDER_NAME -Xmx192m -XX:TieredStopAtLevel=1`"" -WorkingDirectory "$PSScriptRoot\$module" -WindowStyle Hidden -RedirectStandardOutput $logFile -RedirectStandardError $errFile
+    $jvmMem = "-Xmx192m"
+    if ($module -eq "eureka-server" -or $module -eq "api-gateway") {
+        $jvmMem = "-Xmx96m"
+    }
+    
+    Start-Process -FilePath "C:\Tools\maven\bin\mvn.cmd" -ArgumentList "spring-boot:run -Dspring-boot.run.jvmArguments=`"-Dspring.profiles.active=local-dev -DJWT_SECRET=$env:JWT_SECRET -DINTERNAL_SERVICE_SECRET=$env:INTERNAL_SERVICE_SECRET -DBREVO_API_KEY=$env:BREVO_API_KEY -DBREVO_SENDER_EMAIL=$env:BREVO_SENDER_EMAIL -DBREVO_SENDER_NAME=$env:BREVO_SENDER_NAME $jvmMem -XX:TieredStopAtLevel=1`"" -WorkingDirectory "$PSScriptRoot\$module" -WindowStyle Hidden -RedirectStandardOutput $logFile -RedirectStandardError $errFile
     
     if ($module -eq "eureka-server") {
         Write-Host "Waiting 15 seconds for Eureka to initialize..."
