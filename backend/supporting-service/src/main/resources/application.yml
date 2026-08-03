@@ -1,0 +1,102 @@
+server:
+  port: 8086
+
+logging:
+  level:
+    root: INFO
+    org.springframework.messaging: TRACE
+    org.springframework.web.socket: TRACE
+
+spring:
+  application:
+    name: supporting-service
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5433/campusserv
+    username: postgres
+    password: ${POSTGRES_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    # Flyway disabled in supporting-service — all schema managed by the main database migration sequence.
+    # The V1/V2 SQL files in db/migration are kept for reference only.
+    enabled: false
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  rabbitmq:
+
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: ${RABBITMQ_PASSWORD:guest}
+    connection-timeout: 3000ms
+    template:
+      retry:
+        enabled: true
+        max-attempts: 3
+        initial-interval: 1000ms
+        multiplier: 2.0
+    listener:
+      simple:
+        retry:
+          enabled: true
+          max-attempts: 3
+          initial-interval: 1000ms
+          multiplier: 2.0
+        default-requeue-rejected: false
+  data:
+    redis:
+      host: ${REDIS_HOST:127.0.0.1}
+      port: ${REDIS_PORT:6379}
+
+app:
+  upload-dir: ${UPLOAD_DIR:../uploads/}
+
+
+google:
+  api:
+    key: ${GOOGLE_API_KEY}
+
+jwt:
+  secret: ${JWT_SECRET}
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka/
+    registry-fetch-interval-seconds: 5
+    initial-instance-info-replication-interval-seconds: 5
+  instance:
+    preferIpAddress: true
+    ip-address: 127.0.0.1
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,circuitbreakers
+  endpoint:
+    health:
+      show-details: always
+  health:
+    circuitbreakers:
+      enabled: true
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local-dev
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+google:
+  api:
+    key: AIzaSyCO_EY_6hSn0bxRQJdZq9GLdX5_LIIhcK0
+
+jwt:
+  secret: dGhlLXN1cGVyLXNlY3JldC1jb25mZGVudGlhbC1qd3Qta2V5LWZvci1jYW1wdXNzZXJ2LWtudXN0LWdyb3VwLTg4

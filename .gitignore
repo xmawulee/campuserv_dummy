@@ -1,0 +1,108 @@
+# Dependencies and Package managers
+node_modules/
+.pnp
+.pnp.js
+.yarn/install-state.gz
+yarn-error.log*
+yarn-debug.log*
+npm-debug.log*
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# Next.js build output
+.next/
+out/
+build/
+campusserv-admin/coverage/
+
+# Expo / Mobile build output
+mobile/.expo/
+mobile/dist/
+mobile/web-build/
+mobile/expo-env.d.ts
+mobile/.kotlin/
+mobile/ios/
+mobile/android/
+mobile/app.json.bak
+*.json.bak
+
+# Native development signatures/keys (Mobile)
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Metro bundler (Mobile)
+.metro-health-check*
+
+# Java Maven / backend build output
+**/target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.next
+pom.xml.sonar
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/.maven-wrapper.tgz
+backend/maven/
+backend/maven.zip
+
+# Logs and error reports
+*.log
+*-err.log
+backend/simplelogger.properties
+errors.txt
+
+# Upload folders / dynamic data
+uploads/
+backend/uploads/
+
+# Environment variables (NEVER commit these)
+.env
+.env.local
+.env.development
+.env.staging
+.env.production
+.env.*.local
+.env*.local
+!.env.example
+!.env.local.example
+!*.env.example
+
+# SQL scripts & tunnels
+update_passwords.sql
+ngrok_test.yml
+
+# Credentials and Token files
+*firebase*.json
+*firebase-adminsdk*.json
+campuserve-*-firebase-adminsdk-*.json
+token.json
+*.pem
+*.key
+*.p12
+*.jks
+*.keystore
+*.pkcs8
+*.secret
+
+# IDE, OS and Tool configurations
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+.settings/
+.classpath
+.project
+.factorypath
+.DS_Store
+Thumbs.db
+*.tsbuildinfo
+.vercel/
+.claude/
