@@ -1,5 +1,9 @@
 server:
   port: 8082
+  tomcat:
+    threads:
+      max: 15
+      min-spare: 2
 
 spring:
   application:
@@ -9,6 +13,9 @@ spring:
     username: postgres
     password: ${POSTGRES_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 3
+      minimum-idle: 1
   jpa:
     hibernate:
       ddl-auto: validate
